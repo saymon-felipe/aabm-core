@@ -81,8 +81,7 @@ const userContext = {
                 "Gerenciamento de streams de áudio e dados binários via WebSockets (Socket.IO).",
                 "Depuração de problemas de compilação CSS (Tailwind v4 alpha no Vite)." // Reflete sua experiência recente
             ],
-            results: "Aplicação funcional que transcreve áudio em tempo real e fornece respostas contextuais, demonstrando proficiência em desenvolvimento Full-stack e integração de IA.",
-            link: "Link para o repositório GitHub (se público) ou demo (se houver)",
+            results: "Aplicação funcional que transcreve áudio em tempo real e fornece respostas contextuais, demonstrando proficiência em desenvolvimento Full-stack e integração de IA."
         },
         {
             name: "Cademint",

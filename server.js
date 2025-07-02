@@ -5,7 +5,7 @@ const SpeechToTextService = require('./speechToTextService');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 require('dotenv').config();
 
-const userContext = require("./userContext;js");
+const userContext = require("./userContext.js");
 
 const app = express();
 const server = http.createServer(app);
@@ -52,6 +52,7 @@ io.on('connection', (socket) => {
 
     socket.on('requestResponse', async (data) => {
         const originalText = data.text;
+        const conversationContext = data.context;
         console.log(`Backend: Recebido pedido de resposta para: "${originalText}"`);
 
         try {
@@ -59,10 +60,13 @@ io.on('connection', (socket) => {
 
             const userProfileJson = JSON.stringify(userContext, null, 2); 
 
-            const prompt = `Based on the following user's comprehensive professional and personal profile, and considering the latest interview question/statement, generate a concise and relevant response or follow-up. The response should align with the user's background, skills, and career goals, as if you were the user speaking in a job interview. If it is a question, answer it. If it is a statement, generate a professional follow-up or comment. Keep the response brief and direct, using clear and easy-to-understand language.
+            const prompt = `Based on the user’s comprehensive professional and personal profile below, and considering the most recent question/statement below, generate a concise, short, and relevant response or follow-up. The response should align with the user’s education, skills, and career goals, as if you were the user speaking in a job interview. If it’s a question, answer it. If it’s a statement, generate a professional follow-up or comment. Keep the response direct, concise, and short, using clear, easy-to-understand language. The goal is for the user (who has a B1 level of English) to be able to quickly read/listen to both the questions and the generated responses. Use simpler phonetic words and phrases to prevent any misunderstandings between the user and the other person.
 
                 User's Comprehensive Profile (JSON format):
                 ${userProfileJson}
+
+                Previous questions and responses on the conversation to provide context:
+                ${conversationContext}
 
                 Latest interview question or statement to respond to:
                 "${originalText}"
